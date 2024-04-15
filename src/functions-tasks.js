@@ -72,8 +72,8 @@ function getArgumentsCount(funcs) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  return (x) => x ** exponent;
 }
 
 /**
@@ -89,8 +89,19 @@ function getPowerFunction(/* exponent */) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
+function getPolynom(...args) {
+  if (args.length === 0) {
+    return null;
+  }
+
+  return (x) => {
+    let result = 0;
+    for (let i = 0; i < args.length; i += 1) {
+      const pow = args.length - 1 - i;
+      result += args[i] * x ** pow;
+    }
+    return result;
+  };
 }
 
 /**
@@ -191,8 +202,18 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  let firstCall = true;
+  let index = 0;
+  return () => {
+    if (firstCall) {
+      firstCall = false;
+      index = 0;
+      return startFrom;
+    }
+    index += 1;
+    return startFrom + index;
+  };
 }
 
 module.exports = {
